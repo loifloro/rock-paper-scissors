@@ -1,0 +1,42 @@
+.header {
+    margin-top: 3rem;
+    border: 1px solid var(--header-outline);
+    border-radius: 1.2rem;
+    padding: 1rem 1.5rem;
+    max-width: 60%;
+    margin-inline: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list {
+    color: white;
+    font-size: clamp(1.25rem, 0.8929rem + 1.7857vw, 2.5rem);
+    text-transform: uppercase;
+}
+
+.list__item {
+    line-height: .8;
+}
+
+.score {
+    background-color: white;
+    padding: 1rem 2.5rem;
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.score__heading {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--score-text);
+}
+
+.score__total {
+    text-align: center;
+    font-size: clamp(3.5rem, 3.3571rem + 0.7143vw, 4rem);
+    font-weight: 700;
+    color: var(--dark-text);
+}
