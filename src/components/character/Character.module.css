@@ -1,0 +1,40 @@
+.character__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    height: 160px;
+    border-radius: 999vw;
+}
+
+.character__item--paper {
+    background-image: var(--paper-gradient);
+    box-shadow: inset 0 -7px hsl(231, 59%, 45%);
+}
+
+.character__item--scissors {
+    box-shadow: inset 0 -7px hsl(28, 59%, 46%);
+    background-image: var(--scissors-gradient);
+}
+
+.character__item--rock {
+    box-shadow: inset 0 -7px hsl(350, 59%, 36%);
+    background-image: var(--rock-gradient);
+}
+
+.character__item {
+    display: flex;
+    justify-content: center;
+    background: white;
+    cursor: pointer;
+    width: 124px;
+    height: 124px;
+    border-radius: 999vw;
+    box-shadow: inset 1px .5rem rgb(226, 226, 226);
+}
+
+.character__icon {
+    width: 54px;
+    -o-object-fit: contain;
+    object-fit: contain;
+}

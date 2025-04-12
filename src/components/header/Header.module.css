@@ -1,5 +1,8 @@
-.header {
-    margin-top: 3rem;
+header {
+    padding-top: 3rem;
+}
+
+.nav {
     border: 1px solid var(--header-outline);
     border-radius: 1.2rem;
     padding: 1rem 1.5rem;
@@ -8,16 +11,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.list {
-    color: white;
-    font-size: clamp(1.25rem, 0.8929rem + 1.7857vw, 2.5rem);
-    text-transform: uppercase;
-}
-
-.list__item {
-    line-height: .8;
 }
 
 .score {
@@ -31,6 +24,7 @@
 .score__heading {
     text-transform: uppercase;
     letter-spacing: 2px;
+    font-weight: 700;
     color: var(--score-text);
 }
 

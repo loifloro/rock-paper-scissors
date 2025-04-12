@@ -1,0 +1,22 @@
+.selection__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-image: url("./bg-triangle.svg");
+    background-repeat: no-repeat;
+    background-size: 90%;
+    background-position: center;
+    z-index: -10;
+    max-width: 380px;
+    min-height: 380px;
+
+    margin-inline: auto;
+}
+
+.selection__first__row {
+    display: flex;
+    justify-content: space-between;
+    min-width: calc(100% + 2rem);
+    margin-top: -1rem;
+}

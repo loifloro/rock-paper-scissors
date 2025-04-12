@@ -1,19 +1,18 @@
-import header from "./Header.module.css";
+import { useScore } from "@stores/useScore";
+import className from "./Header.module.css";
 
 export default function Header() {
-    const score = 1;
+    const { score } = useScore();
 
     return (
-        <header className={header.header}>
-            <ul className={header.list}>
-                <li className={header.list__item}>Rock</li>
-                <li className={header.list__item}>Paper</li>
-                <li className={header.list__item}>Scissors</li>
-            </ul>
-            <div className={header.score}>
-                <p className={header.score__heading}>Score</p>
-                <p className={header.score__total}>{score}</p>
-            </div>
+        <header>
+            <nav className={className.nav}>
+                <img src="/logo.svg" />
+                <div className={className.score}>
+                    <p className={className.score__heading}>Score</p>
+                    <p className={className.score__total}>{score}</p>
+                </div>
+            </nav>
         </header>
     );
 }
