@@ -1,22 +1,26 @@
 import { CharacterPick } from "@type/characterPick";
-import { usePick } from "@stores/usePick";
-import classname from "./Character.module.css";
+import className from "./Character.module.css";
 
 type CharacterProps = {
     imgPath: string;
     pick: CharacterPick;
+    size?: "md" | "lg";
+    onClick?: () => void;
 };
 
-export default function Character({ imgPath, pick }: CharacterProps) {
-    const { updateUserPick } = usePick();
-
+export default function Character({
+    imgPath,
+    pick,
+    size = "lg",
+    onClick,
+}: CharacterProps) {
     return (
         <div
-            className={`${classname.character__container} ${classname[`character__item--${pick}`]}`}
-            onClick={() => updateUserPick(pick)}
+            className={`${className.character__container} ${size === "md" ? className["character__container--md"] : ""} ${className[`character__item--${pick}`]}`}
+            onClick={onClick}
         >
-            <div className={classname.character__item}>
-                <img src={imgPath} className={classname.character__icon} />
+            <div className={className.character__item}>
+                <img src={imgPath} className={className.character__icon} />
             </div>
         </div>
     );

@@ -4,15 +4,15 @@ import { create } from "zustand";
 type Store = {
     userPick: CharacterPick | null;
     housePick: CharacterPick | null;
-    hasUserPick: () => boolean;
     updateUserPick: (newUserPick: CharacterPick) => void;
     updateHousePick: (newHousePick: CharacterPick) => void;
+    resetPicks: () => void;
 };
 
-export const usePick = create<Store>()((set, get) => ({
+export const usePick = create<Store>()((set) => ({
     userPick: null,
     housePick: null,
-    hasUserPick: () => get().userPick !== null,
+    resetPicks: () => set({ userPick: null, housePick: null }),
     updateUserPick: (newUserPick) => set({ userPick: newUserPick }),
-    updateHousePick: (newHousePick) => set({ userPick: newHousePick }),
+    updateHousePick: (newHousePick) => set({ housePick: newHousePick }),
 }));

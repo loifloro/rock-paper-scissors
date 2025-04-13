@@ -2,9 +2,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 160px;
-    height: 160px;
+    width: 260px;
+    height: 260px;
     border-radius: 999vw;
+
+    &.character__container--md {
+        width: 160px;
+        height: 160px;
+
+        & .character__icon {
+            width: 54px;
+        }
+
+
+        & .character__item {
+            width: 124px;
+            height: 124px;
+        }
+    }
 }
 
 .character__item--paper {
@@ -27,14 +42,15 @@
     justify-content: center;
     background: white;
     cursor: pointer;
-    width: 124px;
-    height: 124px;
+    width: 200px;
+    height: 200px;
+
     border-radius: 999vw;
     box-shadow: inset 1px .5rem rgb(226, 226, 226);
 }
 
 .character__icon {
-    width: 54px;
+    width: 86px;
     -o-object-fit: contain;
     object-fit: contain;
 }
