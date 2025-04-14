@@ -12,6 +12,12 @@
     min-height: 380px;
 
     margin-inline: auto;
+
+    @media screen and (max-width: 45.5rem) {
+        max-width: 280px;
+        min-height: 280px;
+        margin-top: 4rem;
+    }
 }
 
 .selection__first__row {

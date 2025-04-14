@@ -7,7 +7,7 @@ export default function Header() {
     return (
         <header>
             <nav className={className.nav}>
-                <img src="/logo.svg" />
+                <img src="/logo.svg" className={className.nav__logo} />
                 <div className={className.score}>
                     <p className={className.score__heading}>Score</p>
                     <p className={className.score__total}>{score}</p>

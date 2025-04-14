@@ -11,23 +11,23 @@ export default function Revelation() {
         useScore();
 
     if (!lastScorer && userPick && !housePick) {
-        setTimeout(() => {
-            const _housePick = getRandomHousePick(userPick);
-            const winner = getPickWinner(userPick, _housePick);
+        const _housePick = getRandomHousePick(userPick);
+        const winner = getPickWinner(userPick, _housePick);
 
-            updateHousePick(_housePick);
+        updateHousePick(_housePick);
 
-            updateLastScorer(winner);
+        updateLastScorer(winner);
 
-            if (winner === "user") {
-                addScore();
-            }
-        }, 3000);
+        if (winner === "user") {
+            addScore();
+        }
     }
 
     return (
         <div className={className.revelation}>
-            <div className={className.revelation__item}>
+            <div
+                className={`${className.revelation__item} ${className.revelation__user}`}
+            >
                 <p className={className.revelation__title}>You picked</p>
                 <Character imgPath={`/icon-${userPick}.svg`} pick={userPick!} />
             </div>
@@ -43,7 +43,7 @@ export default function Revelation() {
                             resetPicks();
                         }}
                     >
-                        Place Again
+                        Play Again
                     </button>
                 </div>
             )}
@@ -59,11 +59,13 @@ export default function Revelation() {
                             resetPicks();
                         }}
                     >
-                        Place Again
+                        Play Again
                     </button>
                 </div>
             )}
-            <div className={className.revelation__item}>
+            <div
+                className={`${className.revelation__item} ${className.revelation__house}`}
+            >
                 <p className={className.revelation__title}>The House Picked</p>
                 {housePick ? (
                     <Character

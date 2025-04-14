@@ -3,6 +3,16 @@
     justify-content: center;
     align-items: center;
     gap: 6rem;
+
+    @media screen and (max-width: 45.5rem) {
+        display: grid;
+        grid-template-areas:
+            "user house"
+            "status status";
+        row-gap: 4rem;
+        margin-top: 4rem;
+        gap: 3rem
+    }
 }
 
 .revelation__item {
@@ -11,14 +21,31 @@
     justify-content: center;
     align-items: center;
     gap: 4rem;
+
+    @media screen and (max-width: 45.5rem) {
+        flex-direction: column-reverse;
+        gap: 1.75rem;
+    }
+}
+
+.revelation__user {
+    @media screen and (max-width: 45.5rem) {
+        grid-area: user;
+    }
+}
+
+.revelation__house {
+    @media screen and (max-width: 45.5rem) {
+        grid-area: house;
+    }
 }
 
 .revelation__title {
     text-transform: uppercase;
     color: white;
     font-weight: 600;
-    letter-spacing: .2em;
-    font-size: 1.25rem;
+    letter-spacing: clamp(0.1rem, 0.0648rem + 0.1502vw, 0.2rem);
+    font-size: clamp(0.8rem, 0.6415rem + 0.6761vw, 1.25rem);
 }
 
 .revelation__placeholder {
@@ -32,7 +59,14 @@
     -webkit-filter: opacity(.8);
     filter: opacity(.5);
     box-sizing: border-box;
-    background-color: hsl(226, 41%, 17%);
+    background-color: hsl(226, 52%, 16%);
+
+    @media screen and (max-width: 45.5rem) {
+        width: 120px;
+        height: 120px;
+        margin-block: .3rem;
+        margin-inline: unset;
+    }
 }
 
 .revelation__status {
@@ -42,6 +76,10 @@
     align-items: center;
     gap: 1rem;
     margin-top: 3rem;
+
+    @media screen and (max-width: 45.5rem) {
+        grid-area: status;
+    }
 }
 
 .revelation__status__title {
@@ -49,15 +87,23 @@
     font-size: 2.85rem;
     font-weight: 700;
     color: white;
+
+    @media screen and (max-width: 45.5rem) {
+        font-size: 4rem;
+    }
 }
 
 .revelation__button {
     background-color: white;
     letter-spacing: 2px;
-    font-size: clamp(0.875rem, 0.831rem + 0.1878vw, 1rem);
+    font-size: clamp(1.15rem, 1.2028rem + -0.2254vw, 1rem);
     font-weight: 600;
     text-transform: uppercase;
     border: 1px solid var(--header-outline);
     border-radius: .4rem;
     padding: .65rem 2rem;
+
+    @media screen and (max-width: 45.5rem) {
+        padding: 1rem 4rem;
+    }
 }

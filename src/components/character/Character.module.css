@@ -6,18 +6,37 @@
     height: 260px;
     border-radius: 999vw;
 
+    @media screen and (max-width: 45.5rem) {
+        width: 128px;
+        height: 128px;
+    }
+
     &.character__container--md {
         width: 160px;
         height: 160px;
 
+        @media screen and (max-width: 45.5rem) {
+            width: 128px;
+            height: 128px;
+        }
+
         & .character__icon {
             width: 54px;
+
+            @media screen and (max-width: 45.5rem) {
+                width: 44px;
+            }
         }
 
 
         & .character__item {
             width: 124px;
             height: 124px;
+
+            @media screen and (max-width: 45.5rem) {
+                width: 100px;
+                height: 100px;
+            }
         }
     }
 }
@@ -25,16 +44,28 @@
 .character__item--paper {
     background-image: var(--paper-gradient);
     box-shadow: inset 0 -7px hsl(231, 59%, 45%);
+
+    @media screen and (max-width: 45.5rem) {
+        box-shadow: inset 0 -4px hsl(231, 59%, 45%);
+    }
 }
 
 .character__item--scissors {
     box-shadow: inset 0 -7px hsl(28, 59%, 46%);
     background-image: var(--scissors-gradient);
+
+    @media screen and (max-width: 45.5rem) {
+        box-shadow: inset 0 -4px hsl(28, 59%, 46%);
+    }
 }
 
 .character__item--rock {
     box-shadow: inset 0 -7px hsl(350, 59%, 36%);
     background-image: var(--rock-gradient);
+
+    @media screen and (max-width: 45.5rem) {
+        box-shadow: inset 0 -4px hsl(350, 59%, 36%);
+    }
 }
 
 .character__item {
@@ -44,13 +75,23 @@
     cursor: pointer;
     width: 200px;
     height: 200px;
-
     border-radius: 999vw;
     box-shadow: inset 1px .5rem rgb(226, 226, 226);
+
+    @media screen and (max-width: 45.5rem) {
+        box-shadow: inset 1px .35rem rgb(226, 226, 226);
+        width: 100px;
+        height: 100px;
+    }
 }
 
 .character__icon {
     width: 86px;
     -o-object-fit: contain;
     object-fit: contain;
+
+
+    @media screen and (max-width: 45.5rem) {
+        width: 44px;
+    }
 }
