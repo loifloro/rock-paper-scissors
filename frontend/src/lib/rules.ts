@@ -3,56 +3,56 @@ import { CharacterPick } from "@type/characterPick";
 export function getPickWinner(
     userPick: CharacterPick,
     housePick: CharacterPick
-): "user" | "house" {
+): "win" | "lose" {
     if (userPick === "lizard") {
         if (housePick === "spock") {
-            return "user";
+            return "win";
         }
 
         if (housePick === "paper") {
-            return "user";
+            return "win";
         }
     }
 
     if (userPick === "spock") {
         if (housePick === "scissors") {
-            return "user";
+            return "win";
         }
 
         if (housePick === "rock") {
-            return "user";
+            return "win";
         }
     }
 
     if (userPick === "paper") {
         if (housePick === "rock") {
-            return "user";
+            return "win";
         }
 
         if (housePick === "spock") {
-            return "user";
+            return "win";
         }
     }
 
     if (userPick === "scissors") {
         if (housePick === "paper") {
-            return "user";
+            return "win";
         }
 
         if (housePick === "lizard") {
-            return "user";
+            return "win";
         }
     }
 
     if (userPick === "rock") {
         if (housePick === "scissors") {
-            return "user";
+            return "win";
         }
 
         if (housePick === "lizard") {
-            return "user";
+            return "win";
         }
     }
 
-    return "house";
+    return "lose";
 }

@@ -2,7 +2,7 @@ import { useScore } from "@stores/useScore";
 import className from "./Header.module.css";
 
 export default function Header() {
-    const { score } = useScore();
+    const scoreStore = useScore((state) => state.score);
 
     return (
         <header>
@@ -10,7 +10,7 @@ export default function Header() {
                 <img src="/logo.svg" className={className.nav__logo} />
                 <div className={className.score}>
                     <p className={className.score__heading}>Score</p>
-                    <p className={className.score__total}>{score}</p>
+                    <p className={className.score__total}>{scoreStore}</p>
                 </div>
             </nav>
         </header>

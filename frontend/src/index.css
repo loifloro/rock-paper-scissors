@@ -164,6 +164,10 @@ body {
     "Open Sans (Custom)";
 }
 
+header {
+  padding-top: 3rem;
+}
+
 button {
   all: unset;
   cursor: pointer;

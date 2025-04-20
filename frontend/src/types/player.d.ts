@@ -1,1 +1,1 @@
-export type Player = "user" | "house";
+export type Player = "player" | "opponent" | "tie";

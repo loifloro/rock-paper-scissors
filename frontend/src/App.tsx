@@ -3,30 +3,35 @@ import { Header } from "./components/header";
 import { Revelation } from "@components/revelation";
 import { Selection } from "@components/selection";
 import { usePick } from "@stores/usePick";
-import { useEffect } from "react";
-import { io } from "socket.io-client";
+import { useSocket } from "@stores/useSocket";
+import { useSearchParams } from "react-router";
 
 export default function App() {
-    const { userPick } = usePick();
+    const { playerPick } = usePick();
+    const [searchParams] = useSearchParams();
 
-    const socket = io("localhost:3000");
+    const socket = useSocket((state) => state.socket);
 
     function connectSocket() {
-        socket.on("connection", (socket) => {
-            console.log(socket);
+        socket.emit("join room", {
+            room: searchParams.get("s"),
+            player: searchParams.get("p"),
+            opponent: searchParams.get("o"),
         });
     }
 
-    useEffect(() => {
+    if (!socket.id) {
         connectSocket();
-    }, []);
+    }
+
+    console.log(socket.id);
 
     return (
         <>
             <Header />
             <main>
-                {!userPick && <Selection />}
-                {userPick && <Revelation />}
+                {!playerPick && <Selection />}
+                {playerPick && <Revelation />}
             </main>
             <Footer />
         </>

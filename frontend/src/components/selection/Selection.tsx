@@ -1,9 +1,24 @@
 import { Character } from "@components/character";
+import { CharacterPick } from "@type/characterPick";
 import { usePick } from "@stores/usePick";
+import { useSearchParams } from "react-router";
 import className from "./Selection.module.css";
+import { useSocket } from "@stores/useSocket";
 
 export default function Selection() {
-    const updateUserPick = usePick((state) => state.updateUserPick);
+    const socket = useSocket((state) => state.socket);
+    const [searchParams] = useSearchParams();
+
+    const updatePlayerPick = usePick((state) => state.updatePlayerPick);
+
+    const handlePlayerPick = (playerPick: CharacterPick) => {
+        socket.emit("player pick", {
+            player: searchParams.get("p"),
+            pick: playerPick,
+        });
+
+        updatePlayerPick(playerPick);
+    };
 
     return (
         <div className={className.selection__container}>
@@ -12,13 +27,13 @@ export default function Selection() {
                     pick="paper"
                     imgPath="/icon-paper.svg"
                     size="md"
-                    onClick={() => updateUserPick("paper")}
+                    onClick={() => handlePlayerPick("paper")}
                 />
                 <Character
                     pick="scissors"
                     imgPath="/icon-scissors.svg"
                     size="md"
-                    onClick={() => updateUserPick("scissors")}
+                    onClick={() => handlePlayerPick("scissors")}
                 />
             </div>
             <div className={className.selection__second__row}>
@@ -26,7 +41,7 @@ export default function Selection() {
                     pick="rock"
                     imgPath="/icon-rock.svg"
                     size="md"
-                    onClick={() => updateUserPick("rock")}
+                    onClick={() => handlePlayerPick("rock")}
                 />
             </div>
         </div>

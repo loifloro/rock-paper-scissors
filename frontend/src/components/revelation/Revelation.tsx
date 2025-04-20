@@ -1,27 +1,98 @@
 import { Character } from "@components/character";
-import { getPickWinner } from "@lib/rules";
-import { getRandomHousePick } from "@lib/helpers";
+// import { getRandomHousePick } from "@lib/helpers";
 import { usePick } from "@stores/usePick";
 import { useScore } from "@stores/useScore";
 import className from "./Revelation.module.css";
+import { useSocket } from "@stores/useSocket";
+import { useSearchParams } from "react-router";
+import { CharacterPick } from "@type/characterPick";
 
 export default function Revelation() {
-    const { userPick, updateHousePick, housePick, resetPicks } = usePick();
-    const { lastScorer, updateLastScorer, addScore, resetLastScorer } =
-        useScore();
+    const socket = useSocket((state) => state.socket);
 
-    if (!lastScorer && userPick && !housePick) {
-        const _housePick = getRandomHousePick(userPick);
-        const winner = getPickWinner(userPick, _housePick);
+    const { playerPick, resetPicks } = usePick();
 
-        updateHousePick(_housePick);
+    const updateOpponentPick = usePick((state) => state.updateOpponentPick);
+    const opponentPick = usePick((state) => state.opponentPick);
 
-        updateLastScorer(winner);
+    const lastScorer = useScore((state) => state.lastScorer);
+    const updateScore = useScore((state) => state.updateScore);
+    const updateLastScorer = useScore((state) => state.updateLastScorer);
+    const resetLastScorer = useScore((state) => state.resetLastScorer);
 
-        if (winner === "user") {
-            addScore();
+    const [searchParams] = useSearchParams();
+
+    socket.on(
+        "score",
+        ({
+            pickWinner,
+            players,
+        }: {
+            players: [
+                {
+                    playerId: string;
+                    opponentId: string;
+                    score: number;
+                    pick: CharacterPick;
+                },
+                {
+                    playerId: string;
+                    opponentId: string;
+                    score: number;
+                    pick: CharacterPick;
+                },
+            ];
+            pickWinner: string;
+        }) => {
+            const currentPlayer = players.find(
+                (item) => item.playerId === searchParams.get("p")
+            );
+            const opponent = players.find(
+                (item) => item.playerId === searchParams.get("o")
+            );
+
+            if (
+                searchParams.get("p") === currentPlayer?.playerId &&
+                opponent?.pick
+            ) {
+                updateOpponentPick(opponent.pick);
+            }
+
+            if (pickWinner === currentPlayer?.playerId) {
+                updateLastScorer("player");
+                updateScore(currentPlayer.score);
+            } else if (pickWinner === opponent?.playerId) {
+                updateLastScorer("opponent");
+            } else {
+                updateLastScorer("tie");
+            }
         }
-    }
+    );
+
+    const handleReset = () => {
+        socket.emit("reset pick", searchParams.get("p"));
+
+        resetLastScorer();
+        resetPicks();
+    };
+
+    socket.on("reset pick", () => {
+        resetLastScorer();
+        resetPicks();
+    });
+
+    // if (!lastScorer && userPick && !housePick) {
+    //     const _housePick = getRandomHousePick(userPick);
+    //     const winner = getPickWinner(userPick, _housePick);
+
+    //     updateHousePick(_housePick);
+
+    //     updateLastScorer(winner);
+
+    //     if (winner === "user") {
+    //         addScore();
+    //     }
+    // }
 
     return (
         <div className={className.revelation}>
@@ -29,35 +100,45 @@ export default function Revelation() {
                 className={`${className.revelation__item} ${className.revelation__user}`}
             >
                 <p className={className.revelation__title}>You picked</p>
-                <Character imgPath={`/icon-${userPick}.svg`} pick={userPick!} />
+                <Character
+                    imgPath={`/icon-${playerPick}.svg`}
+                    pick={playerPick!}
+                />
             </div>
-            {lastScorer === "house" && (
+            {lastScorer === "tie" && (
+                <div className={className.revelation__status}>
+                    <p className={className.revelation__status__title}>
+                        It's a tie
+                    </p>
+                    <button
+                        className={className.revelation__button}
+                        onClick={handleReset}
+                    >
+                        Play Again
+                    </button>
+                </div>
+            )}
+            {lastScorer === "opponent" && (
                 <div className={className.revelation__status}>
                     <p className={className.revelation__status__title}>
                         You Lose
                     </p>
                     <button
                         className={className.revelation__button}
-                        onClick={() => {
-                            resetLastScorer();
-                            resetPicks();
-                        }}
+                        onClick={handleReset}
                     >
                         Play Again
                     </button>
                 </div>
             )}
-            {lastScorer === "user" && (
+            {lastScorer === "player" && (
                 <div className={className.revelation__status}>
                     <p className={className.revelation__status__title}>
                         You Won
                     </p>
                     <button
                         className={className.revelation__button}
-                        onClick={() => {
-                            resetLastScorer();
-                            resetPicks();
-                        }}
+                        onClick={handleReset}
                     >
                         Play Again
                     </button>
@@ -66,11 +147,11 @@ export default function Revelation() {
             <div
                 className={`${className.revelation__item} ${className.revelation__house}`}
             >
-                <p className={className.revelation__title}>The House Picked</p>
-                {housePick ? (
+                <p className={className.revelation__title}>Opponent Picked</p>
+                {opponentPick ? (
                     <Character
-                        imgPath={`/icon-${housePick}.svg`}
-                        pick={housePick!}
+                        imgPath={`/icon-${opponentPick}.svg`}
+                        pick={opponentPick!}
                     />
                 ) : (
                     <div className={className.revelation__placeholder}></div>
