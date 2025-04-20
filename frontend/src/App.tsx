@@ -24,8 +24,6 @@ export default function App() {
         connectSocket();
     }
 
-    console.log(socket.id);
-
     return (
         <>
             <Header />
