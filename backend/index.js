@@ -1,14 +1,20 @@
+import dotenv from "dotenv";
 import { createServer } from "node:http";
 import { getPickWinner } from "./lib/getPickWinner.js";
 import { Server } from "socket.io";
 import express from "express";
+
+dotenv.config();
 
 const app = express();
 const server = createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:5173",
+        origin:
+            process.env.NODE_ENV === "development"
+                ? process.env.CLIENT_DEVELOPMENT_URL
+                : process.env.CLIENT_PRODUCTION_URL,
     },
 });
 
@@ -73,9 +79,9 @@ io.on("connection", (socket) => {
         opponent.pick = null;
 
         io.emit("reset pick");
-
-        console.log(players);
     });
+
+    console.log(players);
 });
 
 app.get("/", (req, res) => {
@@ -83,5 +89,11 @@ app.get("/", (req, res) => {
 });
 
 server.listen(3000, () => {
-    console.log("server running at http://localhost:3000");
+    console.log(
+        `server running at ${
+            process.env.NODE_ENV === "development"
+                ? process.env.DEVELOPMENT_URL
+                : process.env.PRODUCTION_URL
+        }`
+    );
 });
