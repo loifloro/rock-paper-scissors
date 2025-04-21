@@ -6,5 +6,9 @@ type Store = {
 };
 
 export const useSocket = create<Store>()(() => ({
-    socket: io("localhost:3000"),
+    socket: io(
+        import.meta.env.PROD
+            ? import.meta.env.LIVE_URL
+            : import.meta.env.DEVELOPMENT_URL
+    ),
 }));
