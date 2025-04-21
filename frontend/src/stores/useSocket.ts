@@ -7,7 +7,7 @@ type Store = {
 
 export const useSocket = create<Store>()(() => ({
     socket: io(
-        import.meta.env.NODE_ENV === "production"
+        import.meta.env.MODE === "production"
             ? import.meta.env.VITE_LIVE_URL
             : import.meta.env.VITE_DEVELOPMENT_URL,
         {
