@@ -15,6 +15,8 @@ const io = new Server(server, {
             process.env.NODE_ENV === "development"
                 ? process.env.CLIENT_DEVELOPMENT_URL
                 : process.env.CLIENT_PRODUCTION_URL,
+        methods: ["GET", "POST"],
+        credentials: true,
     },
 });
 

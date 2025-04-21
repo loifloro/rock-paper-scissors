@@ -9,6 +9,10 @@ export const useSocket = create<Store>()(() => ({
     socket: io(
         import.meta.env.PROD
             ? import.meta.env.LIVE_URL
-            : import.meta.env.DEVELOPMENT_URL
+            : import.meta.env.DEVELOPMENT_URL,
+        {
+            transports: ["websocket", "polling"],
+            withCredentials: true,
+        }
     ),
 }));
