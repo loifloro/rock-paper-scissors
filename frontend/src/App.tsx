@@ -2,18 +2,17 @@ import { Footer } from "./components/footer";
 import { Header } from "./components/header";
 import { Revelation } from "@components/revelation";
 import { Selection } from "@components/selection";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { usePick } from "@stores/usePick";
 import { useSocket } from "@stores/useSocket";
 import { useSearchParams } from "react-router";
-import { useScore } from "@stores/useScore";
 
 export default function App() {
     const { playerPick } = usePick();
     const [searchParams] = useSearchParams();
 
     const socket = useSocket((state) => state.socket);
-    const updateScore = useScore((state) => state.updateScore);
+    // const updateScore = useScore((state) => state.updateScore);
 
     // const [isWaitingForOpponent, setIsWaitingForOpponent] = useState(
     //     !searchParams.has("s") &&
@@ -21,9 +20,9 @@ export default function App() {
     //         !searchParams.has("o")
     // );
 
-    socket.on("waiting for opponent", () => {
-        setIsWaitingForOpponent(true);
-    });
+    // socket.on("waiting for opponent", () => {
+    //     setIsWaitingForOpponent(true);
+    // });
 
     useEffect(() => {
         if (
