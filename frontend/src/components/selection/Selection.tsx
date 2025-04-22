@@ -12,10 +12,17 @@ export default function Selection() {
     const updatePlayerPick = usePick((state) => state.updatePlayerPick);
 
     const handlePlayerPick = (playerPick: CharacterPick) => {
-        socket.emit("player pick", {
-            player: searchParams.get("p"),
-            pick: playerPick,
-        });
+        if (
+            socket.connected &&
+            searchParams.has("s") &&
+            searchParams.has("p") &&
+            searchParams.has("o")
+        ) {
+            socket.emit("player pick", {
+                player: searchParams.get("p"),
+                pick: playerPick,
+            });
+        }
 
         updatePlayerPick(playerPick);
     };

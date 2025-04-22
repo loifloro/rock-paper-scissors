@@ -7,8 +7,6 @@ export function getRandomHousePick(userPick: CharacterPick): CharacterPick {
             Math.floor(Math.random() * EasyCharacterPicks.length)
         ];
 
-    console.log(userPick, housePick);
-
     if (housePick === userPick) {
         return getRandomHousePick(userPick);
     }

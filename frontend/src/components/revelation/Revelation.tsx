@@ -6,6 +6,8 @@ import className from "./Revelation.module.css";
 import { useSocket } from "@stores/useSocket";
 import { useSearchParams } from "react-router";
 import { CharacterPick } from "@type/characterPick";
+import { getRandomHousePick } from "@lib/helpers";
+import { getPickWinner } from "@lib/rules";
 
 export default function Revelation() {
     const socket = useSocket((state) => state.socket);
@@ -17,10 +19,14 @@ export default function Revelation() {
 
     const lastScorer = useScore((state) => state.lastScorer);
     const updateScore = useScore((state) => state.updateScore);
+    const score = useScore((state) => state.score);
     const updateLastScorer = useScore((state) => state.updateLastScorer);
     const resetLastScorer = useScore((state) => state.resetLastScorer);
 
     const [searchParams] = useSearchParams();
+
+    const hasOpponent =
+        searchParams.has("s") && searchParams.has("p") && searchParams.has("o");
 
     socket.on(
         "score",
@@ -70,7 +76,9 @@ export default function Revelation() {
     );
 
     const handleReset = () => {
-        socket.emit("reset pick", searchParams.get("p"));
+        if (socket.connected && hasOpponent) {
+            socket.emit("reset pick", searchParams.get("p"));
+        }
 
         resetLastScorer();
         resetPicks();
@@ -81,18 +89,18 @@ export default function Revelation() {
         resetPicks();
     });
 
-    // if (!lastScorer && userPick && !housePick) {
-    //     const _housePick = getRandomHousePick(userPick);
-    //     const winner = getPickWinner(userPick, _housePick);
+    if (!hasOpponent && !lastScorer && playerPick && !opponentPick) {
+        const _housePick = getRandomHousePick(playerPick);
+        const player = getPickWinner(playerPick, _housePick);
 
-    //     updateHousePick(_housePick);
+        updateOpponentPick(_housePick);
 
-    //     updateLastScorer(winner);
+        updateLastScorer(player === "win" ? "player" : "opponent");
 
-    //     if (winner === "user") {
-    //         addScore();
-    //     }
-    // }
+        if (player === "win") {
+            updateScore(score + 1);
+        }
+    }
 
     return (
         <div className={className.revelation}>

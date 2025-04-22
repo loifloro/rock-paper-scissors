@@ -21,21 +21,26 @@ const io = new Server(server, {
 });
 
 const players = [];
-let room;
 
 io.on("connection", (socket) => {
-    socket.on("join room", ({ _room, player, opponent }) => {
-        socket.join(_room);
-
+    socket.on("join room", ({ room, player, opponent }) => {
         if (!players.find((item) => item.playerId === player)) {
             players.push({
                 playerId: player,
                 opponentId: opponent,
+                pick: null,
+                roomId: room,
                 score: 0,
             });
+
+            if (!players.find((item) => item.playerId === opponent)) {
+                io.emit("waiting for opponent");
+            } else {
+                io.emit("opponent connected");
+            }
         }
 
-        room = _room;
+        socket.join(room);
     });
 
     socket.on("player pick", ({ player, pick }) => {
