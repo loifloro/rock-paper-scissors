@@ -6,11 +6,16 @@
     text-transform: uppercase;
     border: 1px solid var(--header-outline);
     border-radius: .4rem;
-    padding: .65rem 2rem;
+    padding-block: .65rem;
+    padding-inline: 2rem;
 
     &:hover {
         transition: background-color 400ms ease-in;
         background-color: var(--header-outline);
+    }
+
+    @media screen and (max-width: 45.5rem) {
+        padding-inline: 1.2rem;
     }
 }
 
