@@ -141,6 +141,7 @@ export default function ShareModal() {
                                     type="text"
                                     name="shareLink"
                                     className={className.share__link__input}
+                                    readOnly
                                     value={shareLink.toString()}
                                 />
                                 <Tooltip.Provider>
