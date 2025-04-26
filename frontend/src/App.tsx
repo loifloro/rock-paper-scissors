@@ -26,7 +26,6 @@ export default function App() {
 
     useEffect(() => {
         if (
-            !socket.connected &&
             searchParams.has("s") &&
             searchParams.has("p") &&
             searchParams.has("o")

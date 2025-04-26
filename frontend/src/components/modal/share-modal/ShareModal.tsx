@@ -16,10 +16,10 @@ const className: CSSModuleClasses = {};
 Object.assign(className, share, modal);
 
 export default function ShareModal() {
-    const [, setSearchParams] = useSearchParams();
-    const [opponentId] = useState<string>(v4());
-    const [roomId] = useState<string>(v4());
-    const [playerId] = useState<string>(v4());
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [opponentId] = useState<string>(searchParams.get("o") ?? v4());
+    const [roomId] = useState<string>(searchParams.get("s") ?? v4());
+    const [playerId] = useState<string>(searchParams.get("p") ?? v4());
     const socket = useSocket((state) => state.socket);
 
     const [isCopied, setIsCopied] = useState(false);
@@ -44,7 +44,9 @@ export default function ShareModal() {
     };
 
     const handleCopyShareLink = () => {
-        navigator.clipboard.writeText(shareLink.toString());
+        navigator.clipboard.writeText(
+            `${import.meta.env.VITE_SITE_URL}/?o=${playerId}&s=${roomId}&p=${opponentId}`
+        );
 
         setIsCopied(true);
 

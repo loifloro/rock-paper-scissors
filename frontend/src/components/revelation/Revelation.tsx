@@ -1,19 +1,19 @@
 import { Character } from "@components/character";
-// import { getRandomHousePick } from "@lib/helpers";
+import { CharacterPick } from "@type/characterPick";
+import { getPickWinner } from "@lib/rules";
+import { getRandomHousePick } from "@lib/helpers";
 import { usePick } from "@stores/usePick";
 import { useScore } from "@stores/useScore";
-import className from "./Revelation.module.css";
-import { useSocket } from "@stores/useSocket";
 import { useSearchParams } from "react-router";
-import { CharacterPick } from "@type/characterPick";
-import { getRandomHousePick } from "@lib/helpers";
-import { getPickWinner } from "@lib/rules";
+import { useSocket } from "@stores/useSocket";
+import className from "./Revelation.module.css";
 
 export default function Revelation() {
     const socket = useSocket((state) => state.socket);
 
-    const { playerPick, resetPicks } = usePick();
+    const { playerPick } = usePick();
 
+    const resetPicks = usePick((state) => state.resetPicks);
     const updateOpponentPick = usePick((state) => state.updateOpponentPick);
     const opponentPick = usePick((state) => state.opponentPick);
 

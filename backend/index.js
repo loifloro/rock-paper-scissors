@@ -1,7 +1,7 @@
-import dotenv from "dotenv";
 import { createServer } from "node:http";
 import { getPickWinner } from "./lib/getPickWinner.js";
 import { Server } from "socket.io";
+import dotenv from "dotenv";
 import express from "express";
 
 dotenv.config();
@@ -41,6 +41,8 @@ io.on("connection", (socket) => {
         }
 
         socket.join(room);
+
+        console.log(players);
     });
 
     socket.on("player pick", ({ player, pick }) => {
