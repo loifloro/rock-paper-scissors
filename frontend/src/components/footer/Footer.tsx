@@ -1,6 +1,6 @@
 import { IconCirclesRelation } from "@tabler/icons-react";
 import { RulesModal } from "@components/modal";
-import { Toast } from "radix-ui";
+import { Portal, Toast } from "radix-ui";
 import { usePick } from "@stores/usePick";
 import { useScore } from "@stores/useScore";
 import { useSocket } from "@stores/useSocket";
@@ -37,30 +37,35 @@ export default function Footer() {
                 <RulesModal />
                 {!isOpponentConnected && <ShareModal />}
             </footer>
-            <Toast.Provider swipeDirection="up">
-                <Toast.Root
-                    className={className.toast__root}
-                    open={open}
-                    onOpenChange={setOpen}
-                >
-                    <Toast.Title className={className.toast__title}>
-                        Opponent Connected
-                    </Toast.Title>
-                    <Toast.Description className={className.toast__description}>
-                        An opponent accepted your invite!
-                    </Toast.Description>
-                    <Toast.Action
-                        className={className.toast__action}
-                        asChild
-                        altText="Opponent connected"
+            <Portal.Root>
+                <Toast.Provider swipeDirection="up">
+                    <Toast.Root
+                        className={className.toast__root}
+                        open={open}
+                        onOpenChange={setOpen}
                     >
-                        <div className={className.toast__icon__container}>
-                            <IconCirclesRelation stroke={1.5} />
-                        </div>
-                    </Toast.Action>
-                </Toast.Root>
-                <Toast.Viewport className={className.toast__viewport} />
-            </Toast.Provider>
+                        <Toast.Title className={className.toast__title}>
+                            Opponent Connected
+                        </Toast.Title>
+                        <Toast.Description
+                            className={className.toast__description}
+                        >
+                            An opponent is connected with invitation link. Play
+                            now!
+                        </Toast.Description>
+                        <Toast.Action
+                            className={className.toast__action}
+                            asChild
+                            altText="Opponent connected"
+                        >
+                            <div className={className.toast__icon__container}>
+                                <IconCirclesRelation stroke={1.5} />
+                            </div>
+                        </Toast.Action>
+                    </Toast.Root>
+                    <Toast.Viewport className={className.toast__viewport} />
+                </Toast.Provider>
+            </Portal.Root>
         </>
     );
 }
